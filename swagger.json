@@ -15,7 +15,10 @@
   },
   "servers": [
     {
-      "url": ""
+      "url": "https://real-estate-market-place-bii0.onrender.com"
+    },
+    {
+      "url": "http://localhost:4500"
     }
   ],
   "tags": [

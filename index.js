@@ -15,8 +15,9 @@ app.use("/", listingController);
 
 mongoose.connection.once("open", () => {
   console.log("deb connected");
-  app.listen(process.env.PORT || 3000, () => {
-    console.log("app is listen on port 4500");
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log("app is listen on port  " + PORT);
   });
 });
 
