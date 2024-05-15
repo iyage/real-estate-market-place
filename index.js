@@ -6,15 +6,16 @@ const realtorController = require("./controllers/realtorController");
 const app = express();
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+const dotenv = require("dotenv");
+dotenv.config({ path: ".env" });
 connectDb();
-// app.use(testMiddleWare);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(realtorController);
 app.use("/", listingController);
 
 mongoose.connection.once("open", () => {
   console.log("deb connected");
-  app.listen(4500, () => {
+  app.listen(process.env.PORT || 3000, () => {
     console.log("app is listen on port 4500");
   });
 });
