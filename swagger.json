@@ -1,0 +1,518 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Market place Api using - OpenAPI 3.0",
+    "description": "This is real estate market place api",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "yahg.concept@gmail.com"
+    },
+    "license": {
+      "name": "MIT 2.0",
+      "url": ""
+    },
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": ""
+    }
+  ],
+  "tags": [
+    {
+      "name": "Real Estate Market Place",
+      "description": "Everything about Real Estate",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "listings",
+      "description": "Operations about realtor",
+      "externalDocs": {
+        "description": "",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "realtors",
+      "description": "Operations about realtor"
+    }
+  ],
+  "paths": {
+    "/listings": {
+      "get": {
+        "tags": ["listings"],
+        "summary": "Fetch all available listings",
+        "description": "Get all listings",
+        "operationId": "getListings",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Listings"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Bad Request"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/listings/realtor/{realtor_id}": {
+      "post": {
+        "tags": ["listings"],
+        "summary": "Add new listings for a realtor",
+        "description": "Add new listings for a realtor",
+        "operationId": "addListing",
+        "parameters": [
+          {
+            "name": "realtor_id",
+            "in": "path",
+            "description": "ID of realtor to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create a new pet in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Listing"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/success-response/success"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/listings/{id}/img": {
+      "post": {
+        "tags": ["listings"],
+        "summary": "Add listing images",
+        "description": "Add listing images",
+        "operationId": "addListingImg",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of listing to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create a new pet in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "imgUrl": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/success-response/success"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/listings/{id}/other-charges": {
+      "post": {
+        "tags": ["listings"],
+        "summary": "Add listing charges",
+        "description": "Add listing charges",
+        "operationId": "addListingCharges",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of listing to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create a new pet in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "rate": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/success-response/success"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/realtors": {
+      "get": {
+        "tags": ["realtors"],
+        "summary": "Fetch all available reators",
+        "description": "Get all realtors",
+        "operationId": "getRealtors",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Realtors"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Bad Request"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      },
+      "post": {
+        "tags": ["realtors"],
+        "summary": "Create new Realtor",
+        "description": "create new realtors",
+        "operationId": "newRealtor",
+        "requestBody": {
+          "description": "Create reator",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/requestBodies/Realtor"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Realtors"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Bad Request"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "success-response": {
+      "success": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "example": null
+          },
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "example": 200
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Listing": {
+        "required": ["address", "nearestBusStop", "state", "lga"],
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "nearestBusStop": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "lga": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "rate": {
+            "type": "integer"
+          }
+        }
+      },
+      "Listings": {
+        "required": ["name", "photoUrls"],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "uuid",
+            "example": "1345679087689006ee"
+          },
+          "address": {
+            "type": "string"
+          },
+          "nearestBusStop": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "lga": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "rate": {
+            "type": "integer"
+          },
+          "otherCharges": [
+            {
+              "name": { "type": "string" },
+              "rate": { "type": "integer" }
+            }
+          ],
+          "imgUrl": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "realtor": {
+            "type": "ObjectId"
+          }
+        }
+      },
+      "Realtors": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "uuid",
+            "example": "1345679087689006ee"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          " lastName": {
+            "type": "string"
+          },
+          " email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          " bussinessName": {
+            "type": "string"
+          },
+          "listings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Listings"
+            }
+          }
+        }
+      },
+      "requestBodies": {
+        "Listing": {
+          "description": "Listing to be added",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Listings"
+              }
+            }
+          }
+        },
+        "Realtor": {
+          "type": "object",
+          "properties": {
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "bussinessName": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "petstore_auth": {
+          "type": "oauth2",
+          "flows": {
+            "implicit": {
+              "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+              "scopes": {
+                "write:pets": "modify pets in your account",
+                "read:pets": "read your pets"
+              }
+            }
+          }
+        },
+        "api_key": {
+          "type": "apiKey",
+          "name": "api_key",
+          "in": "header"
+        }
+      }
+    }
+  }
+}
